@@ -7,5 +7,5 @@ def check_limit(borrowed):
         return "Over limit: Fine $5"
     elif borrowed > 6:
         return "Over limit: Fine $10"
-    else:
+    elif borrowed < 0:
         return "Error: invalid number of books"
