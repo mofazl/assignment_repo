@@ -2,7 +2,7 @@
 #STUDENTID: 426001122
 #STUDENT2: Maheep Kaur Rai
 #STUDENTID: 751000235
-#STUDENT3:
+#STUDENT3: Ahmad Awamleh
 #STUDENTID:
 def check_limit(borrowed):
     """
@@ -31,11 +31,11 @@ def process_borrowers(filename):
         for line in file:
             line = line.strip().split(",") #Strips the whitespace and splits the comma separated values into separate tokens
             try:
-                name = line[0]
+                name = line[0].capitalize()
                 status = check_limit(line[1]) #check_limit function is called to check the status
-                print(name, status)
+                print(name,":", status)
             except ValueError:
-                print("Error: Non-numeric value for",line[0]) #Uses try and except to print the name and status of each entry but if there is an invalid input (number of books borrowed is non-numeric) then it prints out the students name and an error message stating there is a non numeric value associated to their entry
+                print("Error: Non-numeric value for",name) #Uses try and except to print the name and status of each entry but if there is an invalid input (number of books borrowed is non-numeric) then it prints out the students name and an error message stating there is a non numeric value associated to their entry
 
 def calculate_average_books(filename):
     """
@@ -51,18 +51,18 @@ def calculate_average_books(filename):
                 continue #skips invalid lines
 
             try:
-                borrowed = int(line[1]) # converts value to integers 
+                borrowed = int(line[1]) #converts value to integers so we can use numeric operators
                 if borrowed < 0: #ensures that only valid entries are entered
                     continue
 
                 total_books += borrowed
                 count += 1
 
-            except ValueError: # if the borrowed value is not valid it is skipped
+            except ValueError: #if the borrowed value is not valid it is skipped
                 continue
     average = total_books / count
     print(f"Average books borrowed: {average:.2f}")
- def count_over_limit(filename):
+def count_over_limit(filename):
     """
     TASK 4:
     This function takes an argument (filename), opens the file, and counts how many students
@@ -70,16 +70,44 @@ def calculate_average_books(filename):
     """
     over_limit_count = 0
     with open(filename, "r") as file:
-        next(file)  # Skip header
+        next(file)  #using next function to skip the header
         for line in file:
             line = line.strip().split(",")
             if len(line) != 2:
-                continue  # Skip invalid lines
+                continue  #skips invalid lines
             try:
                 borrowed = int(line[1])
                 if borrowed > 3:
                     over_limit_count += 1
             except ValueError:
-                continue  # Skip non-numeric entries
+                continue  #skips non-numeric entries
     print("Total students who borrowed more than 3 books:", over_limit_count)
 
+def main():
+    """
+    TASK 5:
+    Prompts the user for a filename and retries until a valid file is provided.
+    Then calls:
+    1. process_borrowers()
+    2. calculate_average_books()
+    3. count_over_limit()
+    """
+    retry = True #declaring a variable retry with Boolean True outside the while loop so we avoid an infinite loop
+    while retry:
+        filename = input("Enter the filename (e.g., library.csv): ")
+        try: #using try and except method to avoid errors
+            with open(filename, "r") as f:
+                retry = False #when correct file input is given, retry is set to False so loop can close
+        except:
+            print("Invalid file. Please try again.")
+
+    print("\n--- Borrower Status ---")
+    process_borrowers(filename) #calling function process_borrowers(filename) to find borrower status
+
+    print("\n--- Average Books Borrowed ---")
+    calculate_average_books(filename) #calling function calculate_average_books(filename) to find average number of books
+
+    print("\n--- Over Limit Count ---")
+    count_over_limit(filename) #calling function count_over_limit(filename) to find over limit count
+
+main() #calling main function
