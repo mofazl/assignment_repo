@@ -61,7 +61,24 @@ def calculate_average_books(filename):
             except ValueError: # if the borrowed value is not valid it is skipped
                 continue
     average = total_books / count
-    print(f"Average books borrowed:" {average:.2f}")
-
-
-
+    print(f"Average books borrowed: {average:.2f}")
+    def count_over_limit(filename):
+    """
+    TASK 4:
+    This function takes an argument (filename), opens the file, and counts how many students
+    borrowed more than 3 books. It skips invalid or non-numeric entries and prints the total count.
+    """
+    over_limit_count = 0
+    with open(filename, "r") as file:
+        next(file)  # Skip header
+        for line in file:
+            line = line.strip().split(",")
+            if len(line) != 2:
+                continue  # Skip invalid lines
+            try:
+                borrowed = int(line[1])
+                if borrowed > 3:
+                    over_limit_count += 1
+            except ValueError:
+                continue  # Skip non-numeric entries
+    print("Total students who borrowed more than 3 books:", over_limit_count)
