@@ -1,7 +1,7 @@
 #STUDENT1: MOHAMMED FAZLUR RAHMAN
 #STUDENTID: 426001122
-#STUDENT2:
-#STUDENTID:
+#STUDENT2: Maheep Kaur Rai
+#STUDENTID: 751000235
 #STUDENT3:
 #STUDENTID:
 def check_limit(borrowed):
@@ -36,3 +36,29 @@ def process_borrowers(filename):
                 print(name, status)
             except ValueError:
                 print("Error: Non-numeric value for",line[0]) #Uses try and except to print the name and status of each entry but if there is an invalid input (number of books borrowed is non-numeric) then it prints out the students name and an error message stating there is a non numeric value associated to their entry
+
+def calculate_average_books(filename):
+    """
+    This function takes an argument(filenam), it opens the given file and reads the file again and calculates the average number of books 
+    borrowed by all students with valid numeric entries. The result is printed rounded of to two decimal places.
+    total_books = 0 #
+    count = 0
+    with open(filename,"r") as f:
+        for line in f:
+            line = line.strip().split(",")
+            if len(line) != 2:
+                continue
+
+            try:
+                borrowed = int(line[1])
+                if borrowed < 0:
+                    continue
+
+                total_books += borrowed
+                count += 1
+
+            except ValueError:
+                continue
+    average = total_books / count
+    print(f"Average books borrowed:" {average:.2f}")
+
