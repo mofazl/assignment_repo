@@ -62,7 +62,7 @@ def calculate_average_books(filename):
                 continue
     average = total_books / count
     print(f"Average books borrowed: {average:.2f}")
-    def count_over_limit(filename):
+ def count_over_limit(filename):
     """
     TASK 4:
     This function takes an argument (filename), opens the file, and counts how many students
@@ -82,3 +82,4 @@ def calculate_average_books(filename):
             except ValueError:
                 continue  # Skip non-numeric entries
     print("Total students who borrowed more than 3 books:", over_limit_count)
+
