@@ -39,7 +39,7 @@ def process_borrowers(filename):
 
 def calculate_average_books(filename):
     """
-    This function takes an argument(filenam), it opens the given file and reads the file again and calculates the average number of books 
+    This function takes an argument(filename), it opens the given file and reads the file again and calculates the average number of books 
     borrowed by all students with valid numeric entries. The result is printed rounded of to two decimal places.
     """
     total_books = 0 #keeps a running total of all valid borrowed values
@@ -48,7 +48,7 @@ def calculate_average_books(filename):
         for line in f:
             line = line.strip().split(",") #strips whitespaces and seperates by a comma
             if len(line) != 2:
-                continue
+                continue #skips invalid lines
 
             try:
                 borrowed = int(line[1]) # converts value to integers 
@@ -58,9 +58,10 @@ def calculate_average_books(filename):
                 total_books += borrowed
                 count += 1
 
-            except ValueError: # if the borrowed valu is not valid it is skipped
+            except ValueError: # if the borrowed value is not valid it is skipped
                 continue
     average = total_books / count
     print(f"Average books borrowed:" {average:.2f}")
+
 
 
